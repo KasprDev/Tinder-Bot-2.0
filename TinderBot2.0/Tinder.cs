@@ -4,17 +4,22 @@ using System.Text;
 using SharpTinder;
 using TinderBot2._0.Objects;
 using TinderClient.Tinder;
+using System.IO;
+using ProtoBuf;
+using System;
 
 namespace TinderBot2._0
 {
     public class Tinder
     {
-        public static List<Tinder> Instances = new List<Tinder>();
+        public static List<Tinder> Instances = new();
 
-        private readonly string _appVersion = "1035200";
-        private readonly string _tinderVersion = "3.52.0";
-        private readonly string _userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:53.0) Gecko/20100101 Firefox/53.0";
-        private  string _authToken { get; set; }
+        private const string _appVersion = "1035601";
+        private const string _tinderVersion = "3.56.1";
+        private const string _userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.76";
+
+        private string _deviceId { get; set; }
+        private string _authToken { get; set; }
         private HttpClient _client { get; set; }
         private readonly string _apiUrl = "https://api.gotinder.com/";
 
@@ -29,17 +34,66 @@ namespace TinderBot2._0
             Instances.Add(instance);
         }
 
+        public async Task<bool> Login(string phoneNumber)
+        {
+            _deviceId = Guid.NewGuid().ToString();
+            await SendPost("v2/buckets?locale=en", new
+            {
+                device_id = _deviceId,
+                experiments = new string[]
+                {
+                    "auth_options",
+                    "sms_auth_v2",
+                    "two_factor_auth"
+                }
+            });
+
+            var s = new SMSLoginRequest()
+            {
+                Phone = phoneNumber
+            };
+
+            using (var file = File.Create("test.bin"))
+            {
+                Serializer.Serialize(file, s);
+            }
+
+            var request = new HttpRequestMessage(HttpMethod.Post, $"{_apiUrl}v3/auth/login?locale=en")
+            {
+                Content = new StringContent($"\v{File.ReadAllText("test.bin")}", Encoding.UTF8, "application/x-protobuf")
+            };
+
+            request.Headers.Add("app_version", _appVersion);
+            request.Headers.Add("tinder-version", _tinderVersion);
+            request.Headers.Add("User-agent", _userAgent);
+            request.Headers.Add("vary", "Accept-Encoding");
+            request.Headers.Add("X-Auth-Token", _authToken);
+
+            var resp = await _client.SendAsync(request);
+
+            //await SendPost("v3/auth/login?locale=en", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(new 
+            //{
+            //    phone = phoneNumber
+            //})));
+
+            return true;
+        }
+
+        public async Task<MatchData?> GetMatches()
+        {
+            var data = await SendGet("v2/matches?locale=en&count=60&message=0&is_tinder_u=false");
+            return string.IsNullOrEmpty(data) ? new MatchData() : JsonConvert.DeserializeObject<MatchData>(data);
+        }
+
         public async Task<TinderRecommendation?> GetMatchCards()
         {
-            var data = await SendGet("v2/recs/core");
-            Console.WriteLine(data);
+            var data = await SendGet("v2/recs/core?locale=en");
             return string.IsNullOrEmpty(data) ? new TinderRecommendation() : JsonConvert.DeserializeObject<TinderRecommendation>(data);
         }
 
         public async Task<LikedUser?> LikeUser(string userId)
         {
             var data = await SendGet($"like/{userId}?locale=en");
-
             return JsonConvert.DeserializeObject<LikedUser>(data);
         }
 
@@ -63,10 +117,9 @@ namespace TinderBot2._0
                 Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json")
             };
 
-            request.Headers.Add( "app_version", _appVersion );
+            request.Headers.Add( "app_version", _appVersion);
             request.Headers.Add("tinder-version", _tinderVersion);
             request.Headers.Add("User-agent", _userAgent);
-            request.Headers.Add("content-type", "application/json");
             request.Headers.Add("vary", "Accept-Encoding");
             request.Headers.Add("X-Auth-Token", _authToken);
 

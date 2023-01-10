@@ -33,6 +33,8 @@ namespace TinderBot2._0
 
         private async void Form1_Load(object sender, EventArgs e)
         {
+            //await new Tinder(null).Login("14105999868");
+
             Settings.ValidateFolders();
 
             var files = Directory.GetFiles(Settings.AccountPath);

@@ -11,6 +11,6 @@ namespace TinderClient.Tinder
     public class MatchData
     {
         [JsonProperty("matches")]
-        public IList<Match> Matches { get; set; }
+        public IList<Match>? Matches { get; set; }
     }
 }

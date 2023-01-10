@@ -13,6 +13,9 @@ namespace SharpTinder
         [JsonProperty("_id")]
         public string Id { get; set; }
 
+        [JsonProperty("has_shown_initial_interest")]
+        public bool ShowedInitialInterest { get; set; }
+
         [JsonProperty("closed")]
         public bool Closed { get; set; }
 
