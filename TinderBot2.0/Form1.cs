@@ -19,6 +19,7 @@ namespace TinderBot2._0
             if (resp?.Name == null)
             {
                 MessageBox.Show("Unable to login to your Tinder account with the provided xAuthToken. It may have expired, please login again.", "Tinder Suite");
+                
                 return;
             }
 
@@ -46,6 +47,7 @@ namespace TinderBot2._0
 
             if (resp?.Name == null)
             {
+                File.Delete(Path.Combine(Settings.AccountPath, $"{tinder._authToken}.txt"));
                 MessageBox.Show("Unable to login to your Tinder account with the provided xAuthToken. It may have expired, please login again.", "Tinder Suite");
                 return;
             }

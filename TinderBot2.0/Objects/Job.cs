@@ -6,10 +6,10 @@ namespace SharpTinder
     {
 
         [JsonProperty("company")]
-        public Company Company { get; set; }
+        public Company? Company { get; set; }
 
         [JsonProperty("title")]
-        public Title Title { get; set; }
+        public Title? Title { get; set; }
     }
 }
 

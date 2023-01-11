@@ -1,3 +1,5 @@
+using TinderBot2._0.Licensing;
+
 namespace TinderBot2._0
 {
     internal static class Program
@@ -11,7 +13,29 @@ namespace TinderBot2._0
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+
+            if (File.Exists("license.lic"))
+            {
+                // Live Server
+                var l = new Licensing.Licensing
+                {
+                    Url = "https://licensing.deviar.net",
+                    SoftwareId = 3
+                };
+
+                var result = l.RegisterLicense(File.ReadAllText("license.lic")).GetAwaiter().GetResult();
+
+                if (!result)
+                {
+                    Application.Exit();
+                }
+
+                Application.Run(new Form1());
+            }
+            else
+            {
+                Application.Run(new ActivateLicense());
+            }
         }
     }
 }

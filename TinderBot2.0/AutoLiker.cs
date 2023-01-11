@@ -1,6 +1,7 @@
 ﻿using SharpTinder;
 using System.Security.Policy;
 using TinderBot2_0;
+using Message = SharpTinder.Message;
 
 namespace TinderBot2._0
 {
@@ -76,14 +77,14 @@ namespace TinderBot2._0
 
                             if (result)
                             {
-                                var like = await Tinder.Instances.First().LikeUser(user.User.Id);
+                                //var like = await Tinder.Instances.First().LikeUser(user.User.Id);
 
-                                if (like?.LikesRemaining == 0)
-                                {
-                                    Text = $"Auto Liker - {like?.LikesRemaining} likes remaining";
-                                }
+                                //if (like?.LikesRemaining == 0)
+                                //{
+                                //    Text = $"Auto Liker - {like?.LikesRemaining} likes remaining";
+                                //}
 
-                                Text = $"Auto Liker - {like?.LikesRemaining} likes remaining";
+                                //Text = $"Auto Liker - {like?.LikesRemaining} likes remaining";
 
                             }
                             else
@@ -119,6 +120,8 @@ namespace TinderBot2._0
                 labelZodiac.ForeColor = Color.Black;
                 labelIntent.ForeColor = Color.Black;
                 labelEthnicity.ForeColor = Color.Black;
+                labelSalary.ForeColor = Color.Black;
+                labelSalary.Text = "";
             });
 
             // This user is outside of the preferred distance range.
@@ -153,6 +156,28 @@ namespace TinderBot2._0
             {
                 labelEthnicity.Text = "Processing..";
             });
+
+            var jobTitle = user.User?.Jobs?.FirstOrDefault()?.Title?.Name;
+
+            if (jobTitle != null)
+            {
+                MessageBox.Show(jobTitle);
+            }
+
+            if (jobTitle != null && TinderLists.JobData.ContainsKey(jobTitle))
+            {
+                labelSalary.InvokeIfRequired(() =>
+                {
+                    labelSalary.Text = $"${TinderLists.JobData[$"{jobTitle}"]}";
+                    if (TinderLists.JobData[$"{jobTitle}"] < incomeLevel.Value && incomeLevel.Value != 0)
+                    {
+                        labelSalary.ForeColor = Color.DarkRed;
+                    }
+                });
+            }
+
+            if (labelSalary.ForeColor == Color.DarkRed)
+                return false;
 
             // Get image data to process against the machine learning model.
             using (var client = new HttpClient())
@@ -199,6 +224,12 @@ namespace TinderBot2._0
             MessageBox.Show(
                 "Select all of the intents that you are not interested in.\r\n\r\nFor example, do not select \"Long-term partner\" if you are looking for a hookup.",
                 "Tinder Suite");
+        }
+
+        private void linkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MessageBox.Show(
+                "The minimum amount of yearly income that you are looking for. If the user does not have their employment set on their profile this will be skipped.\n\nSet this to 0 to disable income scanning.", "Tinder Suite");
         }
     }
 }

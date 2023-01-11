@@ -15,7 +15,7 @@ namespace SharpTinder
     public class TinderRecommendedUser
     { 
         [JsonProperty("user")]
-        public TinderUser User { get; set; }
+        public TinderUser? User { get; set; }
 
         [JsonProperty("dead")]
         public bool Dead { get; set; }

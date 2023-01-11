@@ -19,7 +19,7 @@ namespace TinderBot2._0
         private const string _userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.76";
 
         private string _deviceId { get; set; }
-        private string _authToken { get; set; }
+        public string _authToken { get; set; }
         private HttpClient _client { get; set; }
         private readonly string _apiUrl = "https://api.gotinder.com/";
 

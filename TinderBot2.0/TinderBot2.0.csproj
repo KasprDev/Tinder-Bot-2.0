@@ -19,6 +19,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="protobuf-net" Version="3.1.26" />
     <PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.3.1" />
+    <PackageReference Include="System.Management" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup Label="DatingModel">
     <None Include="DatingModel.consumption.cs">

@@ -65,7 +65,7 @@ namespace TinderBot2._0.Objects
         public IList<RecommendationPhoto> Photos { get; set; }
 
         [JsonProperty("jobs")]
-        public IList<Job> Jobs { get; set; }
+        public IList<Job>? Jobs { get; set; }
 
         [JsonProperty("schools")]
         public IList<School> Schools { get; set; }

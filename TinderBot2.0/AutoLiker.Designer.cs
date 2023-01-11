@@ -32,6 +32,9 @@
             this.lblName = new System.Windows.Forms.Label();
             this.lblDistance = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.linkLabel5 = new System.Windows.Forms.LinkLabel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.incomeLevel = new System.Windows.Forms.NumericUpDown();
             this.checkSelfieVerified = new System.Windows.Forms.CheckBox();
             this.linkLabel4 = new System.Windows.Forms.LinkLabel();
             this.label6 = new System.Windows.Forms.Label();
@@ -59,8 +62,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.labelIntent = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.labelSalary = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.incomeLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxDistance)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,7 +74,7 @@
             // 
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(82, 75);
+            this.pictureBox1.Size = new System.Drawing.Size(93, 96);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -77,7 +83,7 @@
             // 
             this.lblName.AutoSize = true;
             this.lblName.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblName.Location = new System.Drawing.Point(100, 10);
+            this.lblName.Location = new System.Drawing.Point(110, 12);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(39, 20);
             this.lblName.TabIndex = 1;
@@ -87,7 +93,7 @@
             // 
             this.lblDistance.AutoSize = true;
             this.lblDistance.ForeColor = System.Drawing.Color.Gray;
-            this.lblDistance.Location = new System.Drawing.Point(100, 30);
+            this.lblDistance.Location = new System.Drawing.Point(110, 32);
             this.lblDistance.Name = "lblDistance";
             this.lblDistance.Size = new System.Drawing.Size(74, 15);
             this.lblDistance.TabIndex = 2;
@@ -95,6 +101,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.linkLabel5);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.incomeLevel);
             this.groupBox1.Controls.Add(this.checkSelfieVerified);
             this.groupBox1.Controls.Add(this.linkLabel4);
             this.groupBox1.Controls.Add(this.label6);
@@ -114,12 +123,50 @@
             this.groupBox1.Controls.Add(this.checkNoKids);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.listEthnicities);
-            this.groupBox1.Location = new System.Drawing.Point(12, 92);
+            this.groupBox1.Location = new System.Drawing.Point(12, 129);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(426, 322);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Preferences";
+            // 
+            // linkLabel5
+            // 
+            this.linkLabel5.AutoSize = true;
+            this.linkLabel5.Location = new System.Drawing.Point(261, 266);
+            this.linkLabel5.Name = "linkLabel5";
+            this.linkLabel5.Size = new System.Drawing.Size(12, 15);
+            this.linkLabel5.TabIndex = 22;
+            this.linkLabel5.TabStop = true;
+            this.linkLabel5.Text = "?";
+            this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel5_LinkClicked);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(215, 266);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(49, 15);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "Income";
+            // 
+            // incomeLevel
+            // 
+            this.incomeLevel.Increment = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.incomeLevel.Location = new System.Drawing.Point(215, 284);
+            this.incomeLevel.Maximum = new decimal(new int[] {
+            500000,
+            0,
+            0,
+            0});
+            this.incomeLevel.Name = "incomeLevel";
+            this.incomeLevel.Size = new System.Drawing.Size(203, 23);
+            this.incomeLevel.TabIndex = 20;
             // 
             // checkSelfieVerified
             // 
@@ -327,7 +374,7 @@
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(225, 420);
+            this.btnStart.Location = new System.Drawing.Point(225, 457);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(213, 34);
             this.btnStart.TabIndex = 4;
@@ -337,7 +384,7 @@
             // 
             // btnSaveMatchPreferences
             // 
-            this.btnSaveMatchPreferences.Location = new System.Drawing.Point(12, 420);
+            this.btnSaveMatchPreferences.Location = new System.Drawing.Point(12, 457);
             this.btnSaveMatchPreferences.Name = "btnSaveMatchPreferences";
             this.btnSaveMatchPreferences.Size = new System.Drawing.Size(207, 34);
             this.btnSaveMatchPreferences.TabIndex = 5;
@@ -348,7 +395,7 @@
             // lblEthnicity
             // 
             this.lblEthnicity.AutoSize = true;
-            this.lblEthnicity.Location = new System.Drawing.Point(101, 45);
+            this.lblEthnicity.Location = new System.Drawing.Point(111, 47);
             this.lblEthnicity.Name = "lblEthnicity";
             this.lblEthnicity.Size = new System.Drawing.Size(56, 15);
             this.lblEthnicity.TabIndex = 6;
@@ -358,7 +405,7 @@
             // 
             this.labelEthnicity.AutoSize = true;
             this.labelEthnicity.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelEthnicity.Location = new System.Drawing.Point(153, 45);
+            this.labelEthnicity.Location = new System.Drawing.Point(163, 47);
             this.labelEthnicity.Name = "labelEthnicity";
             this.labelEthnicity.Size = new System.Drawing.Size(29, 15);
             this.labelEthnicity.TabIndex = 7;
@@ -368,7 +415,7 @@
             // 
             this.labelZodiac.AutoSize = true;
             this.labelZodiac.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelZodiac.Location = new System.Drawing.Point(143, 60);
+            this.labelZodiac.Location = new System.Drawing.Point(153, 62);
             this.labelZodiac.Name = "labelZodiac";
             this.labelZodiac.Size = new System.Drawing.Size(29, 15);
             this.labelZodiac.TabIndex = 9;
@@ -377,7 +424,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(101, 60);
+            this.label2.Location = new System.Drawing.Point(111, 62);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 15);
             this.label2.TabIndex = 8;
@@ -387,7 +434,7 @@
             // 
             this.labelIntent.AutoSize = true;
             this.labelIntent.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelIntent.Location = new System.Drawing.Point(138, 75);
+            this.labelIntent.Location = new System.Drawing.Point(148, 77);
             this.labelIntent.Name = "labelIntent";
             this.labelIntent.Size = new System.Drawing.Size(29, 15);
             this.labelIntent.TabIndex = 11;
@@ -396,17 +443,38 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(101, 75);
+            this.label8.Location = new System.Drawing.Point(111, 77);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(41, 15);
             this.label8.TabIndex = 10;
             this.label8.Text = "Intent:";
             // 
+            // labelSalary
+            // 
+            this.labelSalary.AutoSize = true;
+            this.labelSalary.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelSalary.Location = new System.Drawing.Point(205, 92);
+            this.labelSalary.Name = "labelSalary";
+            this.labelSalary.Size = new System.Drawing.Size(29, 15);
+            this.labelSalary.TabIndex = 13;
+            this.labelSalary.Text = "N/A";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(112, 92);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(96, 15);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "Estimated Salary:";
+            // 
             // AutoLiker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(448, 464);
+            this.ClientSize = new System.Drawing.Size(448, 520);
+            this.Controls.Add(this.labelSalary);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.labelIntent);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.labelZodiac);
@@ -425,6 +493,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.incomeLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxDistance)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -464,5 +533,10 @@
         private CheckBox checkSelfieVerified;
         private Label labelIntent;
         private Label label8;
+        private LinkLabel linkLabel5;
+        private Label label7;
+        private NumericUpDown incomeLevel;
+        private Label labelSalary;
+        private Label label10;
     }
 }
