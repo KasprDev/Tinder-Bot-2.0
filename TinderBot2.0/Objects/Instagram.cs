@@ -1,29 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace SharpTinder
+namespace TinderBot2._0.Objects
 {
     public class Instagram
     {
-
-        [JsonProperty("last_fetch_time")]
-        public DateTime LastFetchTime { get; set; }
+        [JsonProperty("last_fetch_time")] public DateTime LastFetchTime { get; set; }
 
         [JsonProperty("completed_initial_fetch")]
         public bool CompletedInitialFetch { get; set; }
 
-        [JsonProperty("photos")]
-        public IList<InstagramPhoto> Photos { get; set; }
+        [JsonProperty("photos")] public IList<InstagramPhoto> Photos { get; set; }
 
-        [JsonProperty("media_count")]
-        public int MediaCount { get; set; }
+        [JsonProperty("media_count")] public int MediaCount { get; set; }
 
-        [JsonProperty("profile_picture")]
-        public string ProfilePicture { get; set; }
+        [JsonProperty("profile_picture")] public string ProfilePicture { get; set; }
 
-        [JsonProperty("username")]
-        public string Username { get; set; }
+        [JsonProperty("username")] public string Username { get; set; }
     }
 }
-

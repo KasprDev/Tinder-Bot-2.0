@@ -1,21 +1,16 @@
 ﻿using Newtonsoft.Json;
 
-namespace SharpTinder
+namespace TinderBot2._0.Objects
 {
     public class SuperLikes
     {
+        [JsonProperty("remaining")] public int Remaining { get; set; }
 
-        [JsonProperty("remaining")]
-        public int Remaining { get; set; }
+        [JsonProperty("alc_remaining")] public int AlcRemaining { get; set; }
 
-        [JsonProperty("alc_remaining")]
-        public int AlcRemaining { get; set; }
+        [JsonProperty("new_alc_remaining")] public int NewAlcRemaining { get; set; }
 
-        [JsonProperty("new_alc_remaining")]
-        public int NewAlcRemaining { get; set; }
-
-        [JsonProperty("allotment")]
-        public int Allotment { get; set; }
+        [JsonProperty("allotment")] public int Allotment { get; set; }
 
         [JsonProperty("superlike_refresh_amount")]
         public int SuperlikeRefreshAmount { get; set; }
@@ -26,8 +21,6 @@ namespace SharpTinder
         [JsonProperty("superlike_refresh_interval_unit")]
         public string SuperlikeRefreshIntervalUnit { get; set; }
 
-        [JsonProperty("resets_at")]
-        public object ResetsAt { get; set; }
+        [JsonProperty("resets_at")] public object ResetsAt { get; set; }
     }
-
 }

@@ -142,7 +142,6 @@ namespace TinderBot2._0
             { "Bank Teller", 26000 },
             { "Data Entry", 25000 },
             { "Electrician", 35000 },
-
         };
 
         public static object[] StarSigns =
@@ -161,7 +160,8 @@ namespace TinderBot2._0
             "Capricorn"
         };
 
-        public static object[] Hobbies = {
+        public static object[] Hobbies =
+        {
             "Harry Potter",
             "90s Kid",
             "SoundCloud",
@@ -274,7 +274,6 @@ namespace TinderBot2._0
             "Coffee Stall",
             "Content Creation",
             "E-Sports",
-
         };
     }
 }

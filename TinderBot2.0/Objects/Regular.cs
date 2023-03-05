@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace SharpTinder
+namespace TinderBot2._0.Objects
 {
     public class Regular
     {
-
-        [JsonProperty("skus")]
-        public IList<Sku> Skus { get; set; }
+        [JsonProperty("skus")] public IList<Sku> Skus { get; set; }
     }
-
 }

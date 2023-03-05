@@ -1,15 +1,11 @@
 ﻿using Newtonsoft.Json;
 
-namespace SharpTinder
+namespace TinderBot2._0.Objects
 {
     public class Teaser
     {
+        [JsonProperty("string")] public string String { get; set; }
 
-        [JsonProperty("string")]
-        public string String { get; set; }
-
-        [JsonProperty("type")]
-        public string Type { get; set; }
+        [JsonProperty("type")] public string Type { get; set; }
     }
 }
-

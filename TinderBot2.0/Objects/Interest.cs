@@ -1,26 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace SharpTinder
+namespace TinderBot2._0.Objects
 {
     public class Interest
     {
+        [JsonProperty("category_list")] public IList<CategoryList> CategoryList { get; set; }
 
-        [JsonProperty("category_list")]
-        public IList<CategoryList> CategoryList { get; set; }
+        [JsonProperty("id")] public string Id { get; set; }
 
-        [JsonProperty("id")]
-        public string Id { get; set; }
+        [JsonProperty("name")] public string Name { get; set; }
 
-        [JsonProperty("name")]
-        public string Name { get; set; }
+        [JsonProperty("category")] public string Category { get; set; }
 
-        [JsonProperty("category")]
-        public string Category { get; set; }
-
-        [JsonProperty("created_time")]
-        public DateTime CreatedTime { get; set; }
+        [JsonProperty("created_time")] public DateTime CreatedTime { get; set; }
     }
 }
-

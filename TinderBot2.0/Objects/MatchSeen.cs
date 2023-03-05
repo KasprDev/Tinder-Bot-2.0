@@ -1,15 +1,9 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace TinderClient.Tinder
+namespace TinderBot2._0.Objects
 {
     public class MatchSeen
     {
-        [JsonProperty("match_seen")]
-        public bool Seen { get; set; }
+        [JsonProperty("match_seen")] public bool Seen { get; set; }
     }
 }

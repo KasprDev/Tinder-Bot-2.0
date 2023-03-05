@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SharpTinder;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TinderBot2._0.Objects
@@ -28,61 +27,43 @@ namespace TinderBot2._0.Objects
         //[JsonProperty("common_interests")]
         //public IList<CommonInterest> CommonInterests { get; set; }
 
-        [JsonProperty("online_now")]
-        public bool IsOnline { get; set; }
+        [JsonProperty("online_now")] public bool IsOnline { get; set; }
 
-        [JsonProperty("common_friends")]
-        public IList<object> CommonFriends { get; set; }
+        [JsonProperty("common_friends")] public IList<object> CommonFriends { get; set; }
 
-        [JsonProperty("relationship_intent")]
-        public RelationshipIntent? RelationshipIntent { get; set; }
+        [JsonProperty("relationship_intent")] public RelationshipIntent? RelationshipIntent { get; set; }
 
-        [JsonProperty("content_hash")]
-        public string ContentHash { get; set; }
+        [JsonProperty("content_hash")] public string ContentHash { get; set; }
 
-        [JsonProperty("_id")]
-        public string Id { get; set; }
+        [JsonProperty("_id")] public string Id { get; set; }
 
-        [JsonProperty("badges")]
-        public IList<TinderBadge> Badges { get; set; }
+        [JsonProperty("badges")] public IList<TinderBadge> Badges { get; set; }
 
-        [JsonProperty("bio")]
-        public string Bio { get; set; }
+        [JsonProperty("bio")] public string Bio { get; set; }
 
-        [JsonProperty("birth_date")]
-        public DateTime BirthDate { get; set; }
+        [JsonProperty("birth_date")] public DateTime BirthDate { get; set; }
 
-        [JsonProperty("gender")]
-        public int Gender { get; set; }
+        [JsonProperty("gender")] public int Gender { get; set; }
 
-        [JsonProperty("name")]
-        public string Name { get; set; }
+        [JsonProperty("name")] public string Name { get; set; }
 
-        [JsonProperty("ping_time")]
-        public DateTime PingTime { get; set; }
+        [JsonProperty("ping_time")] public DateTime PingTime { get; set; }
 
-        [JsonProperty("photos")]
-        public IList<RecommendationPhoto> Photos { get; set; }
+        [JsonProperty("photos")] public IList<RecommendationPhoto> Photos { get; set; }
 
-        [JsonProperty("jobs")]
-        public IList<Job>? Jobs { get; set; }
+        [JsonProperty("jobs")] public IList<Job>? Jobs { get; set; }
 
-        [JsonProperty("schools")]
-        public IList<School> Schools { get; set; }
+        [JsonProperty("schools")] public IList<School> Schools { get; set; }
 
-        [JsonProperty("teaser")]
-        public Teaser Teaser { get; set; }
+        [JsonProperty("teaser")] public Teaser Teaser { get; set; }
 
-        [JsonProperty("birth_date_info")]
-        public string BirthDateInfo { get; set; }
+        [JsonProperty("birth_date_info")] public string BirthDateInfo { get; set; }
 
-        [JsonProperty("is_traveling")]
-        public bool? IsTraveling { get; set; }
+        [JsonProperty("is_traveling")] public bool? IsTraveling { get; set; }
 
         //[JsonProperty("instagram")]
         //public Instagram Instagram { get; set; }
 
-        [JsonProperty("uncommon_interests")]
-        public IList<object> UncommonInterests { get; set; }
+        [JsonProperty("uncommon_interests")] public IList<object> UncommonInterests { get; set; }
     }
 }

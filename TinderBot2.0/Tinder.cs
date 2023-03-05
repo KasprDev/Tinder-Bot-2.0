@@ -1,12 +1,11 @@
 ﻿using Microsoft.VisualBasic.ApplicationServices;
 using Newtonsoft.Json;
 using System.Text;
-using SharpTinder;
 using TinderBot2._0.Objects;
-using TinderClient.Tinder;
 using System.IO;
 using ProtoBuf;
 using System;
+using System.Net;
 
 namespace TinderBot2._0
 {
@@ -16,17 +15,41 @@ namespace TinderBot2._0
 
         private const string _appVersion = "1035601";
         private const string _tinderVersion = "3.56.1";
-        private const string _userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.76";
+
+        private const string _userAgent =
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.76";
 
         private string _deviceId { get; set; }
+        private ProxyType? _proxy { get; set; }
         public string _authToken { get; set; }
         private HttpClient _client { get; set; }
         private readonly string _apiUrl = "https://api.gotinder.com/";
 
-        public Tinder(string authToken)
+        public Tinder(string authToken, ProxyType? proxy)
         {
             _authToken = authToken;
             _client = new HttpClient();
+            _proxy = proxy;
+
+            if (_proxy == null) return;
+
+            var p = new WebProxy
+            {
+                Address = new Uri($"http://{_proxy.Ip}:{_proxy.Port}"),
+                BypassProxyOnLocal = false,
+                UseDefaultCredentials = false,
+
+                Credentials = new NetworkCredential(
+                    userName: _proxy.Username,
+                    password: _proxy.Password)
+            };
+
+            var httpClientHandler = new HttpClientHandler();
+            httpClientHandler.Proxy = p;
+
+            httpClientHandler.ServerCertificateCustomValidationCallback =
+                HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+            _client = new HttpClient(handler: httpClientHandler, disposeHandler: true);
         }
 
         public static void RegisterInstance(Tinder instance)
@@ -34,67 +57,38 @@ namespace TinderBot2._0
             Instances.Add(instance);
         }
 
-        public async Task<bool> Login(string phoneNumber)
+        public async Task<MatchData?> GetMatches(bool hasSentMessage = false)
         {
-            _deviceId = Guid.NewGuid().ToString();
-            await SendPost("v2/buckets?locale=en", new
-            {
-                device_id = _deviceId,
-                experiments = new string[]
-                {
-                    "auth_options",
-                    "sms_auth_v2",
-                    "two_factor_auth"
-                }
-            });
-
-            var s = new SMSLoginRequest()
-            {
-                Phone = phoneNumber
-            };
-
-            using (var file = File.Create("test.bin"))
-            {
-                Serializer.Serialize(file, s);
-            }
-
-            var request = new HttpRequestMessage(HttpMethod.Post, $"{_apiUrl}v3/auth/login?locale=en")
-            {
-                Content = new StringContent($"\v{File.ReadAllText("test.bin")}", Encoding.UTF8, "application/x-protobuf")
-            };
-
-            request.Headers.Add("app_version", _appVersion);
-            request.Headers.Add("tinder-version", _tinderVersion);
-            request.Headers.Add("User-agent", _userAgent);
-            request.Headers.Add("vary", "Accept-Encoding");
-            request.Headers.Add("X-Auth-Token", _authToken);
-
-            var resp = await _client.SendAsync(request);
-
-            //await SendPost("v3/auth/login?locale=en", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(new 
-            //{
-            //    phone = phoneNumber
-            //})));
-
-            return true;
-        }
-
-        public async Task<MatchData?> GetMatches()
-        {
-            var data = await SendGet("v2/matches?locale=en&count=60&message=0&is_tinder_u=false");
+            var data = await SendGet(
+                $"v2/matches?locale=en&count=60&message={(hasSentMessage ? 1 : 0)}&is_tinder_u=false");
             return string.IsNullOrEmpty(data) ? new MatchData() : JsonConvert.DeserializeObject<MatchData>(data);
         }
 
         public async Task<TinderRecommendation?> GetMatchCards()
         {
             var data = await SendGet("v2/recs/core?locale=en");
-            return string.IsNullOrEmpty(data) ? new TinderRecommendation() : JsonConvert.DeserializeObject<TinderRecommendation>(data);
+            return string.IsNullOrEmpty(data)
+                ? new TinderRecommendation()
+                : JsonConvert.DeserializeObject<TinderRecommendation>(data);
         }
 
         public async Task<LikedUser?> LikeUser(string userId)
         {
             var data = await SendGet($"like/{userId}?locale=en");
             return JsonConvert.DeserializeObject<LikedUser>(data);
+        }
+
+        public async Task SendMessage(string userId, string message)
+        {
+            var currentUser = await GetUser();
+
+            await SendPost($"user/matches/{userId}?locale=en", new
+            {
+                userId,
+                matchId = $"{userId}{currentUser.Id}",
+                otherId = currentUser.Id,
+                message
+            });
         }
 
         public async Task<LikedUser?> PassUser(string userId, long sNumber)
@@ -117,7 +111,7 @@ namespace TinderBot2._0
                 Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json")
             };
 
-            request.Headers.Add( "app_version", _appVersion);
+            request.Headers.Add("app_version", _appVersion);
             request.Headers.Add("tinder-version", _tinderVersion);
             request.Headers.Add("User-agent", _userAgent);
             request.Headers.Add("vary", "Accept-Encoding");

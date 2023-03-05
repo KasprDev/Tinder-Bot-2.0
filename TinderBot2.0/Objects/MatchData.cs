@@ -1,16 +1,14 @@
 ﻿using Newtonsoft.Json;
-using SharpTinder;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace TinderClient.Tinder
+namespace TinderBot2._0.Objects
 {
     public class MatchData
     {
-        [JsonProperty("matches")]
-        public IList<Match>? Matches { get; set; }
+        [JsonProperty("data")] public MatchesData Data { get; set; }
+    }
+
+    public class MatchesData
+    {
+        [JsonProperty("matches")] public IList<Match>? Matches { get; set; }
     }
 }

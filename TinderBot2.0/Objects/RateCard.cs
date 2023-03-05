@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace SharpTinder
+namespace TinderBot2._0.Objects
 {
     public class RateCard
     {
-
-        [JsonProperty("carousel")]
-        public IList<Carousel> Carousel { get; set; }
+        [JsonProperty("carousel")] public IList<Carousel> Carousel { get; set; }
     }
-
 }

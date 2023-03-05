@@ -5,6 +5,7 @@ namespace TinderBot2._0
     public partial class MainForm : Form
     {
         public TinderUser? User { get; set; }
+
         public MainForm()
         {
             InitializeComponent();
@@ -31,7 +32,6 @@ namespace TinderBot2._0
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -42,6 +42,11 @@ namespace TinderBot2._0
         private void autoLikerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new AutoLiker().Show();
+        }
+
+        private void messagerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Messenger().Show();
         }
     }
 }

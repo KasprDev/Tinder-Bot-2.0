@@ -33,6 +33,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.functionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.autoLikerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.messagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblBio = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureUser)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -70,7 +71,8 @@
             // functionsToolStripMenuItem
             // 
             this.functionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.autoLikerToolStripMenuItem});
+            this.autoLikerToolStripMenuItem,
+            this.messagerToolStripMenuItem});
             this.functionsToolStripMenuItem.Name = "functionsToolStripMenuItem";
             this.functionsToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.functionsToolStripMenuItem.Text = "Functions";
@@ -78,9 +80,16 @@
             // autoLikerToolStripMenuItem
             // 
             this.autoLikerToolStripMenuItem.Name = "autoLikerToolStripMenuItem";
-            this.autoLikerToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.autoLikerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.autoLikerToolStripMenuItem.Text = "Auto Liker";
             this.autoLikerToolStripMenuItem.Click += new System.EventHandler(this.autoLikerToolStripMenuItem_Click);
+            // 
+            // messagerToolStripMenuItem
+            // 
+            this.messagerToolStripMenuItem.Name = "messagerToolStripMenuItem";
+            this.messagerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.messagerToolStripMenuItem.Text = "Messager";
+            this.messagerToolStripMenuItem.Click += new System.EventHandler(this.messagerToolStripMenuItem_Click);
             // 
             // lblBio
             // 
@@ -120,5 +129,6 @@
         private ToolStripMenuItem functionsToolStripMenuItem;
         private ToolStripMenuItem autoLikerToolStripMenuItem;
         private Label lblBio;
+        private ToolStripMenuItem messagerToolStripMenuItem;
     }
 }

@@ -1,7 +1,7 @@
-﻿using SharpTinder;
-using System.Security.Policy;
+﻿using System.Security.Policy;
+using TinderBot2._0.Objects;
 using TinderBot2_0;
-using Message = SharpTinder.Message;
+using Message = TinderBot2._0.Objects.Message;
 
 namespace TinderBot2._0
 {
@@ -22,7 +22,9 @@ namespace TinderBot2._0
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            MessageBox.Show("A list zodiac signs that you prefer to not date. Leave empty if you are open to all zodiac signs.", "Tinder Suite");
+            MessageBox.Show(
+                "A list zodiac signs that you prefer to not date. Leave empty if you are open to all zodiac signs.",
+                "Tinder Suite");
         }
 
         private void AutoLiker_Load(object sender, EventArgs e)
@@ -68,8 +70,8 @@ namespace TinderBot2._0
 
                             this.InvokeIfRequired(() =>
                             {
-                                pictureBox1.LoadAsync(user.User.Photos.FirstOrDefault()?.Url);
-                                lblName.Text = user.User.Name;
+                                pictureBox1.LoadAsync(user.User?.Photos.FirstOrDefault()?.Url);
+                                lblName.Text = user.User?.Name;
                                 lblDistance.Text = $"{user.Distance} miles away";
                             });
 
@@ -77,22 +79,21 @@ namespace TinderBot2._0
 
                             if (result)
                             {
-                                //var like = await Tinder.Instances.First().LikeUser(user.User.Id);
+                                var like = await Tinder.Instances.First().LikeUser(user.User.Id);
 
-                                //if (like?.LikesRemaining == 0)
-                                //{
-                                //    Text = $"Auto Liker - {like?.LikesRemaining} likes remaining";
-                                //}
+                                if (like?.LikesRemaining == 0)
+                                {
+                                    Text = $"Auto Liker - {like?.LikesRemaining} likes remaining";
+                                }
 
-                                //Text = $"Auto Liker - {like?.LikesRemaining} likes remaining";
-
+                                Text = $"Auto Liker - {like?.LikesRemaining} likes remaining";
                             }
                             else
                             {
-                                await Tinder.Instances.First().PassUser(user.User.Id, user.User.SNumber);
+                                await Tinder.Instances.First().PassUser(user.User?.Id, user.User.SNumber);
                             }
 
-                            await Task.Delay(2000);
+                            await Task.Delay(new Random().Next(2000, 5000));
                         }
                     }
                 }
@@ -152,16 +153,13 @@ namespace TinderBot2._0
             if (labelIntent.ForeColor == Color.DarkRed)
                 return false;
 
-            labelEthnicity.InvokeIfRequired(() =>
-            {
-                labelEthnicity.Text = "Processing..";
-            });
+            labelEthnicity.InvokeIfRequired(() => { labelEthnicity.Text = "Processing.."; });
 
             var jobTitle = user.User?.Jobs?.FirstOrDefault()?.Title?.Name;
 
             if (jobTitle != null)
             {
-                MessageBox.Show(jobTitle);
+                // MessageBox.Show(jobTitle);
             }
 
             if (jobTitle != null && TinderLists.JobData.ContainsKey(jobTitle))
@@ -182,7 +180,7 @@ namespace TinderBot2._0
             // Get image data to process against the machine learning model.
             using (var client = new HttpClient())
             {
-                using (var response = await client.GetAsync(user.User.Photos.FirstOrDefault()?.Url))
+                using (var response = await client.GetAsync(user.User?.Photos.FirstOrDefault()?.Url))
                 {
                     var imageBytes =
                         await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
@@ -216,7 +214,6 @@ namespace TinderBot2._0
 
         private void btnSaveMatchPreferences_Click(object sender, EventArgs e)
         {
-
         }
 
         private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -229,7 +226,8 @@ namespace TinderBot2._0
         private void linkLabel5_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             MessageBox.Show(
-                "The minimum amount of yearly income that you are looking for. If the user does not have their employment set on their profile this will be skipped.\n\nSet this to 0 to disable income scanning.", "Tinder Suite");
+                "The minimum amount of yearly income that you are looking for. If the user does not have their employment set on their profile this will be skipped.\n\nSet this to 0 to disable income scanning.",
+                "Tinder Suite");
         }
     }
 }

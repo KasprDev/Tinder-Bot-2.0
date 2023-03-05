@@ -12,14 +12,27 @@ namespace TinderBot2._0
 
         private async void btnInitialize_Click(object sender, EventArgs e)
         {
-            var tinder = new Tinder(txtAuthToken.Text);
+            ProxyType proxy = null;
 
+            if (!string.IsNullOrWhiteSpace(txtProxyIp.Text))
+            {
+                proxy = new ProxyType()
+                {
+                    Ip = txtProxyIp.Text,
+                    Port = Convert.ToInt32(txtProxyPort.Text),
+                    Username = txtProxyUser.Text,
+                    Password = txtProxyPass.Text
+                };
+            }
+
+            var tinder = new Tinder(txtAuthToken.Text, proxy);
             var resp = await tinder.GetUser();
 
             if (resp?.Name == null)
             {
-                MessageBox.Show("Unable to login to your Tinder account with the provided xAuthToken. It may have expired, please login again.", "Tinder Suite");
-                
+                MessageBox.Show(
+                    "Unable to login to your Tinder account with the provided xAuthToken. It may have expired, please login again.",
+                    "Tinder Suite");
                 return;
             }
 
@@ -42,13 +55,15 @@ namespace TinderBot2._0
 
             if (files.Length <= 0) return;
 
-            var tinder = new Tinder(await File.ReadAllTextAsync(files.First()));
+            var tinder = new Tinder(await File.ReadAllTextAsync(files.First()), null);
             var resp = await tinder.GetUser();
 
             if (resp?.Name == null)
             {
                 File.Delete(Path.Combine(Settings.AccountPath, $"{tinder._authToken}.txt"));
-                MessageBox.Show("Unable to login to your Tinder account with the provided xAuthToken. It may have expired, please login again.", "Tinder Suite");
+                MessageBox.Show(
+                    "Unable to login to your Tinder account with the provided xAuthToken. It may have expired, please login again.",
+                    "Tinder Suite");
                 return;
             }
 
@@ -59,12 +74,10 @@ namespace TinderBot2._0
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
         }
     }
 }

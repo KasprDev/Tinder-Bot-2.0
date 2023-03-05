@@ -1,39 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using TinderBot2._0.Objects;
-using TinderClient.Tinder;
+﻿using Newtonsoft.Json;
 
-namespace SharpTinder
+namespace TinderBot2._0.Objects
 {
     public class Result
     {
-        [JsonProperty("results")]
-        public IList<TinderRecommendedUser> Results { get; set; }
+        [JsonProperty("results")] public IList<TinderRecommendedUser>? Results { get; set; }
     }
 
     public class TinderRecommendedUser
-    { 
-        [JsonProperty("user")]
-        public TinderUser? User { get; set; }
+    {
+        [JsonProperty("user")] public TinderUser User { get; set; }
 
-        [JsonProperty("dead")]
-        public bool Dead { get; set; }
+        [JsonProperty("dead")] public bool Dead { get; set; }
 
-        [JsonProperty("match_seen")]
-        public bool MatchSeen { get; set; }
+        [JsonProperty("match_seen")] public bool MatchSeen { get; set; }
 
         [JsonProperty("has_shown_initial_interest")]
         public bool HasShownInitialInterest { get; set; }
 
-        [JsonProperty("distance_mi")]
-        public int Distance { get; set; }
+        [JsonProperty("distance_mi")] public int Distance { get; set; }
 
-        [JsonProperty("is_fast_match")]
-        public bool IsFastMatch { get; set; }
+        [JsonProperty("is_fast_match")] public bool IsFastMatch { get; set; }
 
-        [JsonProperty("s_number")]
-        public long SNumber { get; set; }
+        [JsonProperty("s_number")] public long SNumber { get; set; }
     }
 }
-
